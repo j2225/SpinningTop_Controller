@@ -52,12 +52,13 @@ header {
 }
 
 .logo {
-    font-size: 1.5rem;
+    font-size: min(1.2rem, 4vw);
     font-weight: 800;
     color: var(--text-highlight);
     text-transform: uppercase;
     letter-spacing: 2px;
     text-shadow: 0 0 10px rgba(102, 252, 241, 0.3);
+    white-space: nowrap;
 }
 
 .connect-btn {
@@ -78,10 +79,12 @@ header {
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-.connect-btn:hover {
-    background: rgba(69, 162, 158, 0.2);
-    box-shadow: 0 4px 20px rgba(102, 252, 241, 0.2);
-    transform: translateY(-2px);
+@media (hover: hover) {
+    .connect-btn:hover {
+        background: rgba(69, 162, 158, 0.2);
+        box-shadow: 0 4px 20px rgba(102, 252, 241, 0.2);
+        transform: translateY(-2px);
+    }
 }
 
 .connect-btn.connected {
@@ -179,9 +182,11 @@ header {
 }
 
 /* Active / Hover States */
-.action-btn:hover {
-    border-color: var(--btn-color);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 20px rgba(var(--btn-color), 0.2);
+@media (hover: hover) {
+    .action-btn:hover {
+        border-color: var(--btn-color);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 20px rgba(var(--btn-color), 0.2);
+    }
 }
 
 .action-btn:active, .action-btn.active {
