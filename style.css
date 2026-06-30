@@ -20,6 +20,11 @@
     -webkit-tap-highlight-color: transparent;
 }
 
+html {
+    width: 100%;
+    height: 100%;
+}
+
 body {
     font-family: 'Outfit', sans-serif;
     background-color: var(--bg-color);
@@ -27,8 +32,8 @@ body {
         radial-gradient(circle at 15% 50%, rgba(69, 162, 158, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 85% 30%, rgba(102, 252, 241, 0.1) 0%, transparent 50%);
     color: var(--text-main);
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     overflow: hidden;
