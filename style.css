@@ -58,7 +58,7 @@ header {
     text-transform: uppercase;
     letter-spacing: 2px;
     text-shadow: 0 0 10px rgba(102, 252, 241, 0.3);
-    white-space: nowrap;
+    line-height: 1.1;
 }
 
 .connect-btn {
@@ -254,7 +254,7 @@ header {
     .controller-area {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
+        grid-template-rows: max-content max-content;
         gap: 1.5rem;
         padding: 2rem;
         align-content: center;
