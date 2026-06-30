@@ -1,0 +1,245 @@
+:root {
+    --bg-color: #0b0c10;
+    --panel-bg: rgba(31, 40, 51, 0.6);
+    --panel-border: rgba(69, 162, 158, 0.2);
+    --text-main: #c5c6c7;
+    --text-highlight: #66fcf1;
+    --accent-forward: #4caf50;
+    --accent-backward: #2196f3;
+    --accent-stop: #f44336;
+    --glass-blur: blur(12px);
+    --transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none; /* Prevent text selection during rapid tapping */
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--bg-color);
+    background-image: 
+        radial-gradient(circle at 15% 50%, rgba(69, 162, 158, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 85% 30%, rgba(102, 252, 241, 0.1) 0%, transparent 50%);
+    color: var(--text-main);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    touch-action: manipulation; /* Optimizes touch interactions */
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-highlight);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(102, 252, 241, 0.3);
+}
+
+.connect-btn {
+    background: var(--panel-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--panel-border);
+    color: var(--text-highlight);
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.connect-btn:hover {
+    background: rgba(69, 162, 158, 0.2);
+    box-shadow: 0 4px 20px rgba(102, 252, 241, 0.2);
+    transform: translateY(-2px);
+}
+
+.connect-btn.connected {
+    color: #4caf50;
+    border-color: #4caf50;
+}
+
+/* Main Controller Area */
+.controller-area {
+    flex: 1;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 1rem 2rem 3rem 2rem;
+    gap: 1.5rem;
+}
+
+.control-group {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.action-btn {
+    width: 100%;
+    max-width: 200px;
+    aspect-ratio: 1; /* Creates a square/circle base */
+    border-radius: 25px;
+    background: var(--panel-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 2px solid var(--panel-border);
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 
+        0 8px 32px rgba(0,0,0,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Action Button Specifics */
+.forward-btn {
+    --btn-color: var(--accent-forward);
+}
+.backward-btn {
+    --btn-color: var(--accent-backward);
+}
+.stop-btn {
+    --btn-color: var(--accent-stop);
+}
+
+.action-btn svg {
+    color: var(--btn-color);
+    transition: var(--transition);
+    z-index: 2;
+}
+.action-btn span {
+    z-index: 2;
+}
+
+/* Glow Effect */
+.action-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;
+    height: 120%;
+    background: radial-gradient(circle, var(--btn-color) 0%, transparent 60%);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+    transition: all 0.3s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Active / Hover States */
+.action-btn:hover {
+    border-color: var(--btn-color);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 20px rgba(var(--btn-color), 0.2);
+}
+
+.action-btn:active, .action-btn.active {
+    transform: scale(0.92);
+    border-color: var(--btn-color);
+    color: #fff;
+    box-shadow: inset 0 4px 15px rgba(0,0,0,0.5);
+}
+
+.action-btn:active::before, .action-btn.active::before {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.action-btn:active svg, .action-btn.active svg {
+    color: #fff;
+    transform: scale(1.1);
+}
+
+/* Status Overlay */
+.status-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(11, 12, 16, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.status-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.status-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--panel-border);
+    border-top-color: var(--text-highlight);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Landscape Mode Adjustments */
+@media screen and (orientation: portrait) {
+    .controller-area {
+        flex-direction: column;
+        padding: 1rem;
+    }
+    .action-btn {
+        width: 100%;
+        max-width: none;
+        aspect-ratio: auto;
+        height: 120px;
+        flex-direction: row;
+    }
+}
