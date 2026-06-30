@@ -88,8 +88,8 @@ header {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    padding: 1rem 2rem 3rem 2rem;
-    gap: 1.5rem;
+    padding: 1rem;
+    gap: 1rem;
 }
 
 .control-group {
@@ -102,7 +102,7 @@ header {
 
 .action-btn {
     width: 100%;
-    max-width: 200px;
+    max-width: min(25vw, 160px); /* Creates a responsive size to prevent right edge cutoff in landscape */
     aspect-ratio: 1; /* Creates a square/circle base */
     border-radius: 25px;
     background: var(--panel-bg);
@@ -232,14 +232,29 @@ header {
 /* Landscape Mode Adjustments */
 @media screen and (orientation: portrait) {
     .controller-area {
-        flex-direction: column;
-        padding: 1rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 1.5rem;
+        padding: 2rem;
+        align-content: center;
     }
+    
+    .control-group {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .control-group.stop-group {
+        grid-column: 1 / -1; /* Span across both columns */
+    }
+    
     .action-btn {
         width: 100%;
-        max-width: none;
-        aspect-ratio: auto;
-        height: 120px;
-        flex-direction: row;
+        max-width: 160px;
+        aspect-ratio: 1;
+        height: auto;
+        flex-direction: column;
     }
 }
