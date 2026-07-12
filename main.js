@@ -102,9 +102,9 @@ async function sendCommand(val) {
     }
     
     try {
-        const data = new Uint8Array([val]);
-        // Write without response is typically preferred for controllers if supported, 
-        // but writeValue() is universally accepted for generic writing.
+        // マイコン側が文字（'0', '1', '2'）として判定しているため、文字列に変換してUTF-8として送信
+        const encoder = new TextEncoder();
+        const data = encoder.encode(val.toString());
         await txCharacteristic.writeValue(data);
     } catch (error) {
         console.error('Send Error:', error);
